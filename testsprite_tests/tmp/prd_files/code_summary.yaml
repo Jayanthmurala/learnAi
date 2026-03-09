@@ -1,0 +1,78 @@
+version: "2"
+type: frontend
+tech_stack:
+  - TypeScript
+  - Next.js (App Router)
+  - Tailwind CSS
+  - Mongoose (MongoDB)
+  - Gemini AI (Google)
+  - Groq AI
+  - Remotion (Video)
+  - Framer Motion
+routes:
+  - path: /
+    file: src/app/page.tsx
+    auth_required: false
+    description: Landing page with product overview and pricing
+  - path: /auth/login
+    file: src/app/auth/page.tsx
+    auth_required: false
+    description: User authentication page
+  - path: /upload
+    file: src/app/upload/page.tsx
+    auth_required: true
+    description: Document upload and processing interface
+  - path: /dashboard
+    file: src/app/dashboard/page.tsx
+    auth_required: true
+    description: User dashboard showing courses and videos
+  - path: /courses
+    file: src/app/courses/page.tsx
+    auth_required: true
+    description: Course management and viewing
+  - path: /video/[id]
+    file: src/app/video/[id]/page.tsx
+    auth_required: true
+    description: Video lesson player
+features:
+  - name: AI Document Synthesis
+    description: Converts PDFs and documents into structured course content and video scripts using Gemini and Groq AI.
+    files:
+      - src/app/actions/uploadActions.ts
+      - src/lib/ai.ts
+    entry_route: /upload
+    user_interactions:
+      - Select a document file
+      - Enter course title
+      - Select learning level
+      - Monitor processing status
+    api_calls:
+      - method: POST
+        endpoint: /api/upload (handled via processDocument server action)
+    auth_required: true
+  - name: Cinematic Video Lessons
+    description: Generates narrated video lessons from synthesized scripts using Remotion.
+    files:
+      - src/remotion/
+      - src/app/actions/videoActions.ts
+    entry_route: /video/[id]
+    user_interactions:
+      - Click on a lesson to play
+      - View AI-generated visuals and hear narration
+    auth_required: true
+  - name: Interactive Quizzes
+    description: Automatically generates assessments based on the uploaded document content.
+    files:
+      - src/app/actions/quizActions.ts
+    entry_route: /lesson/[id]
+    user_interactions:
+      - Take a quiz after a lesson
+      - See results and explanations
+    auth_required: true
+known_limitations:
+  - issue: Local file storage is used for uploads instead of cloud storage (S3/Supabase Storage)
+    location: src/app/actions/uploadActions.ts
+    impact: Scalability and persistence across deployments may be limited
+  - issue: Fallback to Groq uses text-only extraction (20k chars limit)
+    location: src/app/actions/uploadActions.ts
+    impact: Large documents or visual-heavy PDFs might lose context in fallback mode

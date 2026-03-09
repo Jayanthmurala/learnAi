@@ -1,0 +1,19 @@
+{
+  "status": "commited",
+  "type": "backend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "backendAuthType": "public",
+  "executionArgs": {
+    "projectName": "learnai-next",
+    "projectPath": "c:\\experiment_garage\\learnAi\\learnai-next",
+    "testIds": [],
+    "additionalInstruction": "This is a Next.js project. Backend logic is implemented via Next.js Server Actions in src/app/actions/. Test the primary server actions for document updates, quiz result saving, and video metadata creation. Mock DB calls if necessary or use the running mongo instance if accessible.",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-qezphFAMMBfWxArNXY8N1iuhi4rRicQMVTIkODFYuN3f2-K_IeRakMkuTkP2Zc8Cs8yvPTrEyfzf7FrI5jQaw0rb8uOmzcHaHb8hc_UdG2RPKbLDSwA6mg6VcDfVykAHY80"
+    }
+  },
+  "serverPort": 63665,
+  "proxy": "http://16aac23d-7d2b-4eb7-ac2f-4fde0207bc70:xyRfHHZPbuCkeda5A08kGtIMx1DSIjJx@tun.testsprite.com:8080"
+}

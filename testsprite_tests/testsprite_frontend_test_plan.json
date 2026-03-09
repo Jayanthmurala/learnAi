@@ -1,0 +1,52 @@
+[
+  {
+    "id": "TC001",
+    "title": "Access Studio via Demo Bypass and Verify Dashboard",
+    "description": "Verifies that clicking the 'Access Demo Studio' button on the login page redirects the user to the dashboard.",
+    "category": "Authentication & Access",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /auth/login"
+      },
+      {
+        "type": "action",
+        "description": "Click the 'Access Demo Studio' button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains '/dashboard'"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text 'Recent Productions' is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Navigate to Upload and Verify Page Elements",
+    "description": "Verifies that a user can reach the upload page and sees the necessary input fields.",
+    "category": "AI Document Synthesis",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard"
+      },
+      {
+        "type": "action",
+        "description": "Click on 'Upload Document' in the sidebar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains '/upload'"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text 'Select a PDF File' is visible"
+      }
+    ]
+  }
+]

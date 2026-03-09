@@ -1,0 +1,56 @@
+version: "2"
+type: backend
+tech_stack:
+  - TypeScript
+  - Next.js 16 (Server Actions)
+  - Node.js
+  - MongoDB / Mongoose
+  - Google Generative AI / Groq SDK
+endpoints:
+  - path: src/app/actions/uploadActions.ts
+    method: Server Action
+    description: Handles PDF upload and initial AI analysis
+  - path: src/app/actions/documentActions.ts
+    method: Server Action
+    description: Handles script regeneration and saving edits
+  - path: src/app/actions/videoActions.ts
+    method: Server Action
+    description: Manages video creation and retrieval
+  - path: src/app/actions/quizActions.ts
+    method: Server Action
+    description: Handles quiz result submission and retrieval
+  - path: src/app/actions/courseActions.ts
+    method: Server Action
+    description: Manages course curriculum and reordering
+  - path: src/app/api/auth/[...nextauth]/route.ts
+    method: GET/POST
+    description: NextAuth authentication endpoints
+features:
+  - name: PDF Text Extraction & Topic Synthesis
+    description: Extracts text from PDF and uses AI to generate lesson topics
+    files:
+      - src/app/actions/uploadActions.ts
+      - src/lib/ai.ts
+    entry_point: uploadPDF
+  - name: AI Script Generation
+    description: Generates detailed educational scripts from topics
+    files:
+      - src/app/actions/documentActions.ts
+      - src/lib/ai.ts
+    entry_point: regenerateTopicScript
+  - name: Video Pipeline Init
+    description: Initializes video processing state in DB
+    files:
+      - src/app/actions/videoActions.ts
+      - src/models/Video.ts
+    entry_point: createVideo
+  - name: Assessment Persistence
+    description: Saves user quiz results and calculates scores
+    files:
+      - src/app/actions/quizActions.ts
+      - src/models/QuizResult.ts
+    entry_point: saveQuizResult
+known_limitations:
+  - issue: AI calls are mocked or require API keys
+    location: src/lib/ai.ts
+    impact: Tests might fail if API keys are missing or quotas exceeded

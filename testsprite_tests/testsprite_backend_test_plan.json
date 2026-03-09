@@ -1,0 +1,22 @@
+[
+  {
+    "id": "TC001",
+    "title": "post api upload pdf document processing",
+    "description": "Test the /api/upload endpoint for uploading PDF documents, ensuring proper handling of valid PDFs, large files, corrupted files, and correct AI analysis response with extracted topics and scripts."
+  },
+  {
+    "id": "TC002",
+    "title": "post api lesson update script editing",
+    "description": "Test the /api/lesson/update endpoint for saving edited lesson scripts, verifying successful save, validation errors, and error handling with retry options."
+  },
+  {
+    "id": "TC003",
+    "title": "post api video create cinematic video generation",
+    "description": "Test the /api/video/create endpoint for producing AI-narrated cinematic videos from lesson scripts, including job queuing, progress indication, successful video generation, and error scenarios like memory limits."
+  },
+  {
+    "id": "TC004",
+    "title": "post api quiz submit interactive quiz scoring",
+    "description": "Test the /api/quiz/submit endpoint for submitting quiz answers, validating required questions completion, scoring accuracy, feedback correctness, and handling incomplete submissions."
+  }
+]
