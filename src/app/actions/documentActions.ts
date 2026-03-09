@@ -3,13 +3,19 @@
 import dbConnect from "@/lib/mongoose";
 import Document from "@/models/Document";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 import { runAIPrompt } from "@/lib/ai";
 
 export async function getDocumentById(id: string) {
     await dbConnect();
     try {
-        const doc = await Document.findById(id).lean();
+        const session = await getServerSession(authOptions);
+        if (!session?.user) return null;
+
+        const userId = (session.user as any).id;
+        const doc = await Document.findOne({ _id: id, user_id: userId }).lean();
         return JSON.parse(JSON.stringify(doc));
     } catch (error) {
         return null;
@@ -50,8 +56,13 @@ export async function regenerateTopicScript(docTitle: string, topic: string, lev
 export async function updateDocumentLessons(id: string, lessons: any[]) {
     await dbConnect();
     try {
-        const doc = await Document.findByIdAndUpdate(
-            id,
+        const session = await getServerSession(authOptions);
+        if (!session?.user) throw new Error("Unauthorized");
+
+        const userId = (session.user as any).id;
+
+        const doc = await Document.findOneAndUpdate(
+            { _id: id, user_id: userId },
             { lessons },
             { returnDocument: 'after' }
         );

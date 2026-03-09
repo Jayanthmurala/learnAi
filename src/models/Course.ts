@@ -7,6 +7,7 @@ export interface ICourse extends Document {
     status: 'draft' | 'published';
     share_slug?: string;
     total_duration?: string;
+    user_id: string;
 }
 
 const CourseSchema: Schema = new Schema({
@@ -16,6 +17,7 @@ const CourseSchema: Schema = new Schema({
     status: { type: String, enum: ['draft', 'published'], default: 'draft' },
     share_slug: { type: String },
     total_duration: { type: String },
+    user_id: { type: String, required: true },
 }, { timestamps: true });
 
 export default mongoose.models.Course || mongoose.model<ICourse>('Course', CourseSchema);

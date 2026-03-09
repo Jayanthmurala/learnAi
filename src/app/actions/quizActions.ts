@@ -4,6 +4,8 @@ import dbConnect from "@/lib/mongoose";
 import Quiz from "@/models/Quiz";
 import QuizResult from "@/models/QuizResult";
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 import { runAIPrompt } from "@/lib/ai";
 
@@ -71,7 +73,15 @@ export async function upsertQuiz(data: any) {
 export async function saveQuizResult(data: any) {
     await dbConnect();
     try {
-        const result = await QuizResult.create(data);
+        const session = await getServerSession(authOptions);
+        if (!session?.user) throw new Error("Unauthorized");
+
+        const userId = (session.user as any).id;
+
+        const result = await QuizResult.create({
+            ...data,
+            user_id: userId
+        });
         revalidatePath("/analytics");
         return { success: true, data: JSON.parse(JSON.stringify(result)) };
     } catch (error: any) {
@@ -81,7 +91,11 @@ export async function saveQuizResult(data: any) {
 export async function getQuizResults() {
     await dbConnect();
     try {
-        const results = await QuizResult.find({}).sort({ createdAt: -1 }).lean();
+        const session = await getServerSession(authOptions);
+        if (!session?.user) return [];
+
+        const userId = (session.user as any).id;
+        const results = await QuizResult.find({ user_id: userId }).sort({ createdAt: -1 }).lean();
         return JSON.parse(JSON.stringify(results));
     } catch (error) {
         return [];

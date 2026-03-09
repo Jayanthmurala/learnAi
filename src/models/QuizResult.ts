@@ -7,6 +7,7 @@ export interface IQuizResult extends Document {
     score: number;
     total_questions: number;
     score_pct: number;
+    user_id: string;
     answers: Array<{
         question_index: number;
         selected_index: number;
@@ -21,6 +22,7 @@ const QuizResultSchema: Schema = new Schema({
     score: { type: Number, required: true },
     total_questions: { type: Number, required: true },
     score_pct: { type: Number, required: true },
+    user_id: { type: String, required: true },
     answers: { type: Array, default: [] },
 }, { timestamps: true });
 

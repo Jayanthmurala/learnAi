@@ -22,20 +22,28 @@ export async function GET(req: Request) {
         }
 
         await dbConnect();
+        const email = session.user.email;
+        const name = session.user.name || "";
 
-        // 1. Find user in database
-        let user = await User.findOne({ email: session.user.email });
+        // 1. Find or create user in database
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            user = await User.create({ email, name });
+        }
 
         // 2. If user doesn't have stripeCustomerId, create one
         if (!user.stripeCustomerId) {
             const customer = await stripe.customers.create({
-                email: session.user.email,
-                name: session.user.name || undefined,
+                email: email,
+                name: name || undefined,
             });
 
             user.stripeCustomerId = customer.id;
             await user.save();
         }
+
+        const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
 
         // 3. Create Checkout Session
         const checkoutSession = await stripe.checkout.sessions.create({
@@ -47,8 +55,8 @@ export async function GET(req: Request) {
                 },
             ],
             mode: 'subscription',
-            success_url: `${process.env.NEXTAUTH_URL}/dashboard?status=success`,
-            cancel_url: `${process.env.NEXTAUTH_URL}/pricing?status=cancelled`,
+            success_url: `${baseUrl}/dashboard?status=success`,
+            cancel_url: `${baseUrl}/pricing?status=cancelled`,
             metadata: {
                 userId: user._id.toString(),
             },

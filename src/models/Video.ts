@@ -6,6 +6,7 @@ export interface IVideo extends Document {
     url: string;
     thumbnail_url: string;
     duration: string;
+    user_id: string;
     slides: { title: string; content: string; prompt?: string }[];
     created_at: Date;
     updated_at: Date;
@@ -17,6 +18,7 @@ const VideoSchema: Schema = new Schema({
     url: { type: String, required: true },
     thumbnail_url: { type: String },
     duration: { type: String },
+    user_id: { type: String, required: true },
     slides: { type: [Object], default: [] },
 }, { timestamps: true });
 

@@ -17,7 +17,7 @@ export const PLANS = [
         id: "pro",
         name: "Professional",
         price: 29,
-        priceId: "price_PRO_ID_HERE", // User needs to replace
+        priceId: "price_1T97Bf2XmK9osFwkdUH3mqyn", // Professional Price ID
         features: [
             "20 Video Syntheses/month",
             "High-Priority AI Processing",
@@ -32,7 +32,7 @@ export const PLANS = [
         id: "unlimited",
         name: "Enterprise",
         price: 99,
-        priceId: "price_ENTERPRISE_ID_HERE", // User needs to replace
+        priceId: "price_1T97CJ2XmK9osFwkCOV5Whvu", // Enterprise Price ID
         features: [
             "Unlimited Video Synthesis",
             "Custom Brand Integration",

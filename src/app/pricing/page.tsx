@@ -7,14 +7,22 @@ import { PLANS } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 export default function PricingPage() {
     const router = useRouter();
+    const { data: session } = useSession();
 
     const handleSubscribe = async (priceId: string) => {
         if (!priceId) return; // Free plan
-        // Redirect to checkout session action (will create next)
-        router.push(`/api/stripe/checkout?priceId=${priceId}`);
+
+        if (!session) {
+            router.push(`/auth/login?callbackUrl=/pricing`);
+            return;
+        }
+
+        // Redirect to checkout session action
+        window.location.href = `/api/stripe/checkout?priceId=${priceId}`;
     };
 
     return (
@@ -105,7 +113,9 @@ export default function PricingPage() {
                                         : "bg-slate-50 text-slate-900 hover:bg-slate-100 shadow-none border border-slate-200"
                                 )}
                             >
-                                {plan.cta}
+                                {plan.id === "free"
+                                    ? (session ? "Active Plan" : "Get Started")
+                                    : (session ? `Get ${plan.name}` : plan.cta)}
                             </Button>
                         </motion.div>
                     ))}
