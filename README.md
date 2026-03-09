@@ -90,4 +90,4 @@ For too long, deep knowledge has been trapped in static files that people strugg
 *   **LinkedIn:** [linkedin.com/in/jayanth-murala-0045b2281](https://www.linkedin.com/in/jayanth-murala-0045b2281)
 
 ---
-*Developed with ❤️ as an exploratory task for the AI interview round at Maruti B.*
+*Developed with ❤️ as an exploratory task for the AI interview round*
