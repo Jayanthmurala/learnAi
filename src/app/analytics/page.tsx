@@ -8,6 +8,8 @@ export const metadata = {
     description: "Video engagement metrics and audience insights.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function AnalyticsPage() {
     const videos = await getVideos();
     const quizResults = await getQuizResults();

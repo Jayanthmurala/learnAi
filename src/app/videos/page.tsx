@@ -9,6 +9,8 @@ export const metadata = {
     description: "All your AI-generated video courses in one place.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function MyVideosPage() {
     const videos = await getVideos();
 

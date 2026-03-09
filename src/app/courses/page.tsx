@@ -8,6 +8,8 @@ export const metadata = {
     description: "Architect and manage your AI-generated education series catalogs.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function CoursesPage() {
     const courses = await getCourses();
     const videos = await getVideos();

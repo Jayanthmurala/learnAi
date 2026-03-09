@@ -9,7 +9,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return {
         title: `${video?.title || "Video"} | LearnAI`,
     };
-}
+};
+
+export const dynamic = "force-dynamic";
 
 export default async function VideoPlayerPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;

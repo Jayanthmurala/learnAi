@@ -11,6 +11,8 @@ export const metadata = {
     description: "Overview of your content generation activity.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage() {
     const session = await getServerSession();
     const { documents, videos, processingCount } = await getDashboardData();

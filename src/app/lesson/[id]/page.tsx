@@ -12,7 +12,9 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
         title: `${doc?.title || "Lesson Preview"} | LearnAI`,
         description: "Review your AI video script.",
     };
-}
+};
+
+export const dynamic = "force-dynamic";
 
 export default async function LessonPreviewPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = await params;
